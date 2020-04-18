@@ -1,13 +1,13 @@
 import React from 'react';
 
-class Index2 extends React.Component{
+class Notfound extends React.Component{
     render(){
         return (
             <div >
-              第二个子路由
+                404 not found
             </div>
         );
     }
 }
 
-export default Index2;
+export default Notfound;
