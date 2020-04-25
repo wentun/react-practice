@@ -10,11 +10,11 @@ class Myfirst extends React.Component{
         return (
             <div className='container'>
                 <Name  />
-                {/* <Lop.Provider value="bule">
+                <Lop.Provider value="bule">
                     <Lpoi  />
                     <Context/>  
                 </Lop.Provider>  
-                <Tabel/> */}
+                <Tabel/>
                 <RouterConfig></RouterConfig>
             </div>
         );

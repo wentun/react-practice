@@ -31,7 +31,7 @@ import Notfound from './Notfound'
 
 export default function ChildRouter(){
     return(
-        <Router history={browserHistory}>
+        <Router >
             <ul>
                 <li><NavLink to="/childrouter/Index1" activeClassName="router-active">一</NavLink></li>
                 <li><NavLink to="/childrouter/Index2" activeClassName="router-active">二</NavLink></li>
