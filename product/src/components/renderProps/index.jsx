@@ -5,7 +5,7 @@ class GodGirl extends React.Component{
     render(){
         const station = this.props.mouse
         return(
-            <img src="../../img/IU.JPG" alt="" style={{ position: 'absolute', left: station.x, top: station.y }}/>
+            <img src="/src/img/IU.JPG" alt="" style={{ position: 'absolute', left: station.x, top: station.y }}/>
         )
     }
 }

@@ -52,7 +52,8 @@ module.exports = {
                     {
                         loader: "file-loader",
                         // options: {
-                        //     name: 'images/[name].[ext]'
+                        //     limit:8192,
+                        //     name:'[name].[ext]',
                         // }
                     }
                 ]
