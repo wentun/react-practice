@@ -1,5 +1,8 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')// 导入内存中生成的index文件插件
+const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽离css文件
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
+const Uglifyjs = require('uglifyjs-webpack-plugin'); // 压缩js插件
 
 const htmlPlugin = new htmlWebpackPlugin({
     template: path.join(__dirname,'./src/index.html'),//源文件
@@ -7,13 +10,22 @@ const htmlPlugin = new htmlWebpackPlugin({
 })
 
 module.exports = {
-    mode:'development',// development开发模式 production产品模式（会压缩）
+    mode:'production',// development开发模式 production产品模式（会压缩）
     devServer:{//配置webpack-dev
         open:true,
-        hot: true
+        hot: true,
+        port: 3000,
+        progress: true, // 打包进度条
+    },
+    output:{
+        filename:'bundle.js',
+        path: path.resolve(__dirname,'dist'),// 路径必须是绝对路径
     },
     plugins:[
-        htmlPlugin
+        htmlPlugin,
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
     ],
     module:{
         rules:[// 所有第三方规则配置
@@ -41,7 +53,8 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
+                    // 'style-loader',
                     'css-loader',
                     'less-loader',
                 ]
@@ -67,4 +80,14 @@ module.exports = {
             '@': path.join(__dirname,'./src'),
         }
     },
+    optimization:{ // 优化项
+        minimizer:[
+            // new Uglifyjs({
+            //     cache: true,// 是否用缓存
+            //     parallel: true, // 并发打包 
+            //     sourceMap: true,// 源码映射
+            // }),
+            new OptimizeCssAssetsPlugin()
+        ]
+    }
 }
