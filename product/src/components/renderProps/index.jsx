@@ -1,11 +1,12 @@
 import React from 'react'
 import '@/css/index.less'
+import IU from '@/img/IU.jpg';
 
 class GodGirl extends React.Component{
     render(){
         const station = this.props.mouse
         return(
-            <img src="/src/img/IU.JPG" alt="" style={{ position: 'absolute', left: station.x, top: station.y }}/>
+            <img src={IU} alt="" style={{ position: 'absolute', left: station.x, top: station.y }}/>
         )
     }
 }

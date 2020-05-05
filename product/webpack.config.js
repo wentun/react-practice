@@ -3,6 +3,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin')// 导入内存中生成
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽离css文件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
 const Uglifyjs = require('uglifyjs-webpack-plugin'); // 压缩js插件
+const webpack = require('webpack'); 
 
 const htmlPlugin = new htmlWebpackPlugin({
     template: path.join(__dirname,'./src/index.html'),//源文件
@@ -18,13 +19,18 @@ module.exports = {
         progress: true, // 打包进度条
     },
     output:{
-        filename:'bundle.js',
+        // filename:'bundle.js',
+        filename: "[name].[hash].bundle.js",
         path: path.resolve(__dirname,'dist'),// 路径必须是绝对路径
+        // publicPath:'http://wen.com' //打包路径
     },
     plugins:[
         htmlPlugin,
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: 'css/[name].css'
+        }),
+        new webpack.ProvidePlugin({// 在每个模块注入jq
+            $: 'jquery'
         })
     ],
     module:{
@@ -37,9 +43,8 @@ module.exports = {
                         options: {
                             presets: ['@babel/preset-env']
                           }
-                    }
+                    },
                 ],
-                // use: 'babel-loader',
                 exclude: /node_modules/,
             },
             // {
@@ -60,14 +65,16 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(gif|png|jpg|woff|svg|ttf|eot|cur|pdf)$/,
+                test: /\.(gif|png|jpg)$/,
                 use: [
                     {
-                        loader: "file-loader",
-                        // options: {
-                        //     limit:8192,
-                        //     name:'[name].[ext]',
-                        // }
+                        loader: "url-loader",
+                        // loader: 'file-loader',
+                        options: {
+                            limit:8192,
+                            outputPath:'img',
+                            name:'[name].[ext]',
+                        }
                     }
                 ]
             },
@@ -80,6 +87,9 @@ module.exports = {
             '@': path.join(__dirname,'./src'),
         }
     },
+    // externals:{//如果从cdn引入则需屏蔽
+    //     jquery:'$'
+    // },
     optimization:{ // 优化项
         minimizer:[
             // new Uglifyjs({

@@ -39,7 +39,9 @@ class Tabel extends React.Component{
             {id:3,name:'tun',age:17},
         ]
         return (
-            <TabelChild arr ={arr} klop={'sdfds'}></TabelChild>
+            <div className="table-list">
+                <TabelChild arr ={arr} klop={'sdfds'}></TabelChild>
+            </div>
         )
     }
 }
