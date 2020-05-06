@@ -3,6 +3,9 @@ const htmlWebpackPlugin = require('html-webpack-plugin')// 导入内存中生成
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽离css文件
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
 const Uglifyjs = require('uglifyjs-webpack-plugin'); // 压缩js插件
+const {CleanWebpackPlugin} = require('clean-webpack-plugin') // 每次打包清空上次文件
+const {CopyWebpackPlugin} = require('copy-webpack-plugin') // 拷贝进入dist
+console.log(CleanWebpackPlugin)
 const webpack = require('webpack'); 
 
 const htmlPlugin = new htmlWebpackPlugin({
@@ -20,7 +23,7 @@ module.exports = {
     },
     output:{
         // filename:'bundle.js',
-        filename: "[name].[hash].bundle.js",
+        filename: "[name].js",
         path: path.resolve(__dirname,'dist'),// 路径必须是绝对路径
         // publicPath:'http://wen.com' //打包路径
     },
@@ -31,8 +34,10 @@ module.exports = {
         }),
         new webpack.ProvidePlugin({// 在每个模块注入jq
             $: 'jquery'
-        })
+        }),
+        new CleanWebpackPlugin()
     ],
+    devtool:'eval-source-map', // 生成sourcemap文件，调试源码，不会生成文件
     module:{
         rules:[// 所有第三方规则配置
             {

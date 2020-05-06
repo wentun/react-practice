@@ -7,6 +7,7 @@ import '@/css/index.less';
 
 class Myfirst extends React.Component{
     render(){
+        console.lo(12)
         return (
             <div className='container'>
                 <Name  />
