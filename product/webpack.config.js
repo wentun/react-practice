@@ -1,11 +1,8 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')// 导入内存中生成的index文件插件
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽离css文件
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
-const Uglifyjs = require('uglifyjs-webpack-plugin'); // 压缩js插件
 const {CleanWebpackPlugin} = require('clean-webpack-plugin') // 每次打包清空上次文件
 // const {CopyWebpackPlugin} = require('copy-webpack-plugin') // 拷贝进入dist
-console.log(CleanWebpackPlugin)
 const webpack = require('webpack'); 
 
 const htmlPlugin = [
@@ -20,7 +17,7 @@ const htmlPlugin = [
 ]
 
 module.exports = {
-    mode:'production',// development开发模式 production产品模式（会压缩）
+    mode:'development',// development开发模式 production产品模式（会压缩）
     devServer:{//配置webpack-dev
         open:true,
         hot: true,
@@ -39,13 +36,12 @@ module.exports = {
     },
     plugins:[
         ...htmlPlugin,
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].css'
-        }),
+        // new MiniCssExtractPlugin({
+        //     filename: '[name].css'
+        // }),
         new webpack.ProvidePlugin({// 在每个模块注入jq
             $: 'jquery'
         }),
-        new CleanWebpackPlugin()
     ],
     devtool:'eval-source-map', // 生成sourcemap文件，调试源码，不会生成文件
     module:{
@@ -73,8 +69,8 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    // 'style-loader',
+                    // MiniCssExtractPlugin.loader,
+                    'style-loader',
                     'css-loader',
                     'less-loader',
                 ]
@@ -105,14 +101,4 @@ module.exports = {
     // externals:{//如果从cdn引入则需屏蔽
     //     jquery:'$'
     // },
-    optimization:{ // 优化项
-        minimizer:[
-            // new Uglifyjs({
-            //     cache: true,// 是否用缓存
-            //     parallel: true, // 并发打包 
-            //     sourceMap: true,// 源码映射
-            // }),
-            new OptimizeCssAssetsPlugin()
-        ]
-    }
 }
