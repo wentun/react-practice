@@ -8,10 +8,16 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin') // 每次打包清�
 console.log(CleanWebpackPlugin)
 const webpack = require('webpack'); 
 
-const htmlPlugin = new htmlWebpackPlugin({
-    template: path.join(__dirname,'./src/index.html'),//源文件
-    filename: 'index.html'//内存中的首页
-})
+const htmlPlugin = [
+    new htmlWebpackPlugin({
+        template: path.join(__dirname,'./src/templte/index.html'),//源文件
+        filename: 'index.html'//内存中的首页
+    }),
+    new htmlWebpackPlugin({
+        template: path.join(__dirname,'./src/templte/home.html'),//源文件
+        filename: 'home.html'//内存中的首页
+    }),
+]
 
 module.exports = {
     mode:'production',// development开发模式 production产品模式（会压缩）
@@ -21,6 +27,10 @@ module.exports = {
         port: 3000,
         progress: true, // 打包进度条
     },
+    entry:{
+        index:'./src/templte/index.js',
+        home:'./src/templte/home.js'
+    },
     output:{
         // filename:'bundle.js',
         filename: "js/[name].js",
@@ -28,7 +38,7 @@ module.exports = {
         // publicPath:'http://wen.com' //打包路径
     },
     plugins:[
-        htmlPlugin,
+        ...htmlPlugin,
         new MiniCssExtractPlugin({
             filename: 'css/[name].css'
         }),
