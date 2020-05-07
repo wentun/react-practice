@@ -4,7 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽离css文�
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
 const Uglifyjs = require('uglifyjs-webpack-plugin'); // 压缩js插件
 const {CleanWebpackPlugin} = require('clean-webpack-plugin') // 每次打包清空上次文件
-const {CopyWebpackPlugin} = require('copy-webpack-plugin') // 拷贝进入dist
+// const {CopyWebpackPlugin} = require('copy-webpack-plugin') // 拷贝进入dist
 console.log(CleanWebpackPlugin)
 const webpack = require('webpack'); 
 
@@ -23,7 +23,7 @@ module.exports = {
     },
     output:{
         // filename:'bundle.js',
-        filename: "[name].js",
+        filename: "js/[name].js",
         path: path.resolve(__dirname,'dist'),// 路径必须是绝对路径
         // publicPath:'http://wen.com' //打包路径
     },
