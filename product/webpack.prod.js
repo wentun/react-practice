@@ -1,3 +1,4 @@
+const path = require('path')
 const merge = require('webpack-merge')
 const base = require('./webpack.config.js')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // 压缩css插件
@@ -10,11 +11,17 @@ module.exports = merge(base,{
 
     plugins:[
         new MiniCssExtractPlugin({
-            filename: 'css/[name].css'
+            filename: '[name].css'
         }),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
     ],
 
+    output:{
+        // filename:'bundle.js',
+        filename: "[name].js",
+        path: path.resolve(__dirname,'dist'),// 路径必须是绝对路径
+        // publicPath:'http://wen.com' //打包路径
+    },
     module:{
         rules:[
             {

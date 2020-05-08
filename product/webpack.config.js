@@ -1,7 +1,5 @@
 const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')// 导入内存中生成的index文件插件
-const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 抽离css文件
-const {CleanWebpackPlugin} = require('clean-webpack-plugin') // 每次打包清空上次文件
 // const {CopyWebpackPlugin} = require('copy-webpack-plugin') // 拷贝进入dist
 const webpack = require('webpack'); 
 
@@ -28,17 +26,8 @@ module.exports = {
         index:'./src/templte/index.js',
         home:'./src/templte/home.js'
     },
-    output:{
-        // filename:'bundle.js',
-        filename: "js/[name].js",
-        path: path.resolve(__dirname,'dist'),// 路径必须是绝对路径
-        // publicPath:'http://wen.com' //打包路径
-    },
     plugins:[
         ...htmlPlugin,
-        // new MiniCssExtractPlugin({
-        //     filename: '[name].css'
-        // }),
         new webpack.ProvidePlugin({// 在每个模块注入jq
             $: 'jquery'
         }),
@@ -83,7 +72,7 @@ module.exports = {
                         // loader: 'file-loader',
                         options: {
                             limit:8192,
-                            outputPath:'img',
+                            outputPath:'img/',
                             name:'[name].[ext]',
                         }
                     }
