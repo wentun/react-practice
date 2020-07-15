@@ -10,12 +10,12 @@ class Myfirst extends React.Component{
         return (
             <div className='container'>
                 <Name  />
+                <RouterConfig></RouterConfig>
                 <Lop.Provider value="bule">
                     <Lpoi  />
                     <Context/>  
                 </Lop.Provider>  
                 <Tabel/>
-                <RouterConfig></RouterConfig>
             </div>
         );
     }

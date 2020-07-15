@@ -3,6 +3,7 @@ import Usehoc from '@/components/hoc/index';
 import MoveAcction from '@/components/renderProps/index';
 import CustomTextInput from '@/components/refs/reftest';
 import Example from '@/components/hook/index';
+import Taiji from '@/components/hook/taiji';
 import Main from '@/components/routerchild/index';
 // import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { HashRouter as Router, Route, Link,NavLink,Switch } from "react-router-dom";
@@ -20,6 +21,7 @@ class RouterConfig extends React.Component{
                     <li><NavLink to="/MoveAcction" activeClassName="router-active">rend Prop</NavLink></li>
                     <li><NavLink to="/childrouter" activeClassName="router-active">子路由</NavLink></li>
                     <li><NavLink to="/hook" activeClassName="router-active">hook</NavLink></li>
+                    <li><NavLink to="/taiji" activeClassName="router-active">太极</NavLink></li>
                 </ul>
                 <div>
                     <Switch>
@@ -29,6 +31,7 @@ class RouterConfig extends React.Component{
                         <Route path="/CustomTextInput" component={CustomTextInput}></Route>
                         <Route path="/childrouter" component={Main}></Route>
                         <Route path="/hook" component={Example}></Route>
+                        <Route path="/taiji" component={Taiji}></Route>
                     </Switch>
                 </div>
             </Router>
